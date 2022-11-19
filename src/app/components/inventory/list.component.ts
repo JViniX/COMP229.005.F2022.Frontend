@@ -12,9 +12,11 @@ export class ListComponent{
 
     title = 'Inventory List';    
 
-    constructor(private repository: InventoryRepository,
+    constructor(public repository: InventoryRepository,
         private router: Router) 
-    {}    
+    {
+        repository.setInventory();
+    }    
 
     get inventoryList(): Inventory[] {
         return this.repository.getInventory();        

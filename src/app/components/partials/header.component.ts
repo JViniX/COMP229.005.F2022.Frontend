@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from "@angular/router";
-// import { AuthService } from 'src/app/models/auth.service';
+import { AuthService } from 'src/app/models/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,12 +10,12 @@ import { Router } from "@angular/router";
 export class HeaderComponent {
   @Input() title?: string;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, public auth: AuthService) { }
 
-  // logout() {
-  //   if (confirm('Are you sure?')) {
-  //     this.auth.clear();
-  //     this.router.navigateByUrl("/");
-  //   }
-  // }
+  logout() {
+    if (confirm('Are you sure?')) {
+      this.auth.clear();
+      this.router.navigateByUrl("/");
+    }
+  }
 }

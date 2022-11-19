@@ -38,12 +38,13 @@ export class AddEditComponent {
     }
 
     save(form: NgForm) {
-        // this.repository.saveInventory(this.item);
+        console.log('===== AddEditComponent save');
+        this.repository.saveInventory(this.item);
         this.router.navigateByUrl("inventory/list");                
     }
 
     private deleteItem(id: string){
-        // this.repository.deleteInventory(id);
+        this.repository.deleteInventory(id);
         this.router.navigateByUrl("inventory/list");
     }
     
