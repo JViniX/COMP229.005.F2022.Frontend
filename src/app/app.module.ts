@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from "@angular/forms";
-import { RouterModule } from "@angular/router";
 import { AppComponent } from './app.component';
 
 import { IndexModule } from "./components/index.module";
-import { IndexComponent } from './components/index.component';
-
 import { InventoryModule } from "./components/inventory/inventory.module";
-import { ListComponent } from './components/inventory/list.component';
+import { AuthModule } from './components/auth/auth.module';
+import { AppRoutingModule } from './app-routing.module';
+import { AuthGuard } from './components/auth/auth.guard';
 
 @NgModule({
   declarations: [
@@ -19,13 +18,10 @@ import { ListComponent } from './components/inventory/list.component';
     FormsModule,
     IndexModule,
     InventoryModule,
-    RouterModule.forRoot([
-      { path: "", component: IndexComponent},
-      { path: "inventory/list", component: ListComponent },
-      { path: "**", redirectTo: ""}
-    ])
+    AuthModule,
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
