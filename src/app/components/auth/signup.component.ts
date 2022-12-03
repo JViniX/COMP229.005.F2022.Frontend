@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
-import { AuthService } from "../../models/auth.service";
+import { FBAuthService } from "../../models/fb-auth.service";
 import { User } from "../../models/user.model";
 
 @Component({
@@ -15,7 +15,7 @@ export class SignUpComponent {
     public message: string;
 
     constructor(private router: Router,
-        private auth: AuthService) { }
+        private auth: FBAuthService) { }
 
     signup(form: NgForm) {
         if (form.valid) {

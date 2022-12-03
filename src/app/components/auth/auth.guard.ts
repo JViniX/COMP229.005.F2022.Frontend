@@ -4,13 +4,13 @@ import {
     RouterStateSnapshot,
     Router
 } from "@angular/router";
-import { AuthService } from "../../models/auth.service";
+import { FBAuthService } from "../../models/fb-auth.service";
 
 @Injectable()
 export class AuthGuard {
 
     constructor(private router: Router,
-        private auth: AuthService) { }
+        private auth: FBAuthService) { }
 
     canActivate(route: ActivatedRouteSnapshot,
                 state: RouterStateSnapshot): boolean 
