@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from "@angular/router";
-import { AuthService } from 'src/app/models/auth.service';
+import { FBAuthService } from 'src/app/models/fb-auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/models/auth.service';
 export class HeaderComponent {
   @Input() title?: string;
 
-  constructor(private router: Router, public auth: AuthService) { }
+  constructor(private router: Router, public auth: FBAuthService) { }
 
   logout() {
     if (confirm('Are you sure?')) {

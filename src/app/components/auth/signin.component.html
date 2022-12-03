@@ -15,9 +15,9 @@
             <!-- <form action="/users/signin" method="post"> -->
             <form novalidate #form="ngForm" (ngSubmit)="authenticate(form)">
                 <div class="form-group">
-                    <label>Username:</label>
+                    <label>Email:</label>
                     <!-- <input type="text" name="username" class="form-control" /> -->
-                    <input type="text" name="username" [(ngModel)]="username" class="form-control" />
+                    <input type="text" name="email" [(ngModel)]="email" class="form-control" />
                 </div>
                 <div class="form-group">
                     <label>Password:</label>
@@ -34,6 +34,13 @@
                         <i class="fas fa-user-plus"></i> 
                         Sign-up
                     </a>
+                </div>
+                <br>
+                <div class="form-group">                    
+                    <button type="button" class="btn btn-primary" (click)="auth.googleAuth()">
+                        <i class="fab fa-google"></i> 
+                        Continue with Google
+                    </button>
                 </div>
             </form>
         </div>
