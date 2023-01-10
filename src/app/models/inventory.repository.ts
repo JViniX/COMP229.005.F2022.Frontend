@@ -1,4 +1,6 @@
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 import { Inventory } from "./inventory.model";
 import { RestDataSource } from "./rest.datasource";
 import { ResponseModel } from "./response.model";
@@ -27,51 +29,44 @@ export class InventoryRepository {
         return Object.assign({}, this.tempInventoryList.find(i => i._id === id)!);        
     }
 
-    async saveInventory(item: Inventory) {
+    saveInventory(item: Inventory): Observable<ResponseModel> {
 
         // If it does not have id, then create a new item.
         if (item._id == null || item._id == "") {
-            this.dataSource.insertInventory(item)
-                .subscribe(response => {
+            return this.dataSource.insertInventory(item)
+                .pipe(map(response => {
                     if(response._id) // If API created
-                    {
-                        this.tempInventoryList.push(response);
+                    {             
+                        return new ResponseModel(true, `Item Added Successfully with the id ${response._id}`);
                     }
                     else{ // If API send error.
                         // Convert into ResponseModel to get the error message.
-                        let error = response as ResponseModel;  
-                        alert(`Error: ${error.message}`);
+                        return response as ResponseModel;
                     }
-                });
+                }));
         } else {
             // If it has id, then update a existing item.
-            this.dataSource.updateInventory(item).subscribe(resp => {
-
-                // Convert into ResponseModel to get the error message.
-                let response = resp as ResponseModel;
-                if (response.success == true) {
-                    console.log(`Sucess: ${response.success}`);
-                    this.tempInventoryList.splice(this.tempInventoryList.
-                        findIndex(i => i._id == item._id), 1, item);
-                }
-                else{
-                    // If API send error.
-                    alert(`Error: ${response.message}`);
-                }        
-            });
+            return this.dataSource.updateInventory(item)
+                .pipe(map(resp => {
+                    // Convert into ResponseModel to get the error message.
+                    let response = resp as ResponseModel;
+                    if (response.success == true) {
+                        this.tempInventoryList.splice(this.tempInventoryList.
+                            findIndex(i => i._id == item._id), 1, item);
+                            return new ResponseModel(true, `Item Edited Successfully`);
+                    }
+                    else{
+                        return response
+                    }        
+                }));
         }
     }
 
-    deleteInventory(id: string) {
-        this.dataSource.deleteInventory(id).subscribe(response => {
-            if (response.success) {
-                this.tempInventoryList.splice(this.tempInventoryList.
-                    findIndex(item => item._id == id), 1);                                
-            }
-            else{
-                alert(`Error: ${response.message}`);
-            }
-        })
+    deleteInventory(id: string): Observable<ResponseModel> {
+        return this.dataSource.deleteInventory(id)
+            .pipe(map(response => {
+                return response;
+        }));
     }
 
 }
