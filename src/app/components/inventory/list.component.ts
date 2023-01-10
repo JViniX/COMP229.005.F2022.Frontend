@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Inventory } from "../../models/inventory.model";
 import { InventoryRepository } from "../../models/inventory.repository";
-import { AuthService } from "../../models/auth.service";
+import { FBAuthService } from "../../models/fb-auth.service";
 
 @Component({
     selector: "list-inventory",
@@ -15,7 +15,7 @@ export class ListComponent{
 
     constructor(public repository: InventoryRepository,
         private router: Router,
-        private auth: AuthService) 
+        private auth: FBAuthService) 
     {
         repository.setInventory();
     }    
