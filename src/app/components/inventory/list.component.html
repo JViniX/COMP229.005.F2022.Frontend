@@ -23,7 +23,7 @@
             Loading..
         </button>
 
-        <div class="table-responsive">
+        <div class="table-responsive" *ngIf="this.repository.listReady == true">
             <table class="table table-bordered table-striped table-hover">
                 <!-- Header Row-->
                 <tr>

@@ -19,11 +19,6 @@ export class AddEditComponent {
                 private router: Router,
                 activeRoute: ActivatedRoute) 
     { 
-        // Delete
-        if (activeRoute.snapshot.params["mode"] == "delete") {
-            this.deleteItem(activeRoute.snapshot.params["id"]);
-        }
-
         this.editing = activeRoute.snapshot.params["mode"] == "edit";
         
         // Edit
@@ -39,13 +34,16 @@ export class AddEditComponent {
 
     save(form: NgForm) {
         console.log('===== AddEditComponent save');
-        this.repository.saveInventory(this.item);
-        this.router.navigateByUrl("inventory/list");                
-    }
-
-    private deleteItem(id: string){
-        this.repository.deleteInventory(id);
-        this.router.navigateByUrl("inventory/list");
+        this.repository.saveInventory(this.item).subscribe(response => {
+            if(response.success){
+                alert(response.message);
+                this.router.navigateByUrl("inventory/list");
+            }
+            else {
+                alert(`Error: ${response.message}`);
+            }
+        });
+            
     }
     
 }
